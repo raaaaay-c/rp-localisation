@@ -23,31 +23,26 @@ public class MarkovLocalisationSkeleton {
 
 			@Override
 			public void windowOpened(WindowEvent _arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent _arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent _arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent _arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowClosing(WindowEvent _arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -60,13 +55,13 @@ public class MarkovLocalisationSkeleton {
 
 			@Override
 			public void windowActivated(WindowEvent _arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
 
 		GridMap gridMap = LocalisationUtils.createTrainingMap();
 
+		// The probability distribution over the robot's location
 		GridPoseDistribution distribution = new GridPoseDistribution(gridMap);
 
 		// view the map with 2 pixels as 1 cm
@@ -79,21 +74,24 @@ public class MarkovLocalisationSkeleton {
 		frame.setVisible(true);
 
 		ActionModel actionModel = new DummyActionModel();
-		// ActionModel actionModel = new ActualPerfectActionModel();
+		// ActionModel actionModel = new PerfectActionModel();
 		DummySensorModel sensorModel = new DummySensorModel();
 
 		while (true) {
 			// Do some action
-			// ...
-			// I'm faking an action by waiting for some time
+			// E.g. attempting to move one node in the PLUS_X direction
+			Heading action = Heading.PLUS_X;
+
+			// I'm faking movement by waiting for some time
 			Delay.msDelay(1000);
 
-			// Once completed, apply action model as appropriate
-			distribution = actionModel.updateAfterMove(distribution,
-					Heading.PLUS_X);
+			// Once action is completed, apply action model based on the move
+			// the robot took. This creates a new instance of
+			// GridPoseDistribution and assigns it to distribution
+			distribution = actionModel.updateAfterMove(distribution, action);
 
-			// Update visualisation. Only necessary if you want to visualise a
-			// new object
+			// Update visualisation. Only necessary because it needs to know
+			// about the new distribution instance
 			mapVis.setDistribution(distribution);
 
 			System.out.println("map sum: " + distribution.sumProbabilities());
@@ -103,11 +101,17 @@ public class MarkovLocalisationSkeleton {
 			// I'm faking sensing by waiting for some time
 			Delay.msDelay(1000);
 
-			// Once completed apply sensor model as appropriate
-			sensorModel.updateDistributionAfterSensing(distribution);
+			// Once completed apply sensor model as appropriate. This changes
+			// the distribution directly (i.e. by reference)
+			sensorModel.updateDistributionAfterSensing(distribution/**
+			 * , include
+			 * sensor readings
+			 **/
+			);
 
 			// Note, as the sensor model changes the distribution directly, the
-			// visualisation will update automatically
+			// visualisation will update automaticallym so
+			// mapVis.setDistribution is not necessary after the sensor model
 
 		}
 
