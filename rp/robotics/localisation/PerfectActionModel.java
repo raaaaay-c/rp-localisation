@@ -29,16 +29,17 @@ public class PerfectActionModel implements ActionModel {
 		if (_heading == Heading.PLUS_X) {
 			movePlusX(_from, to);
 		} else if (_heading == Heading.PLUS_Y) {
-
+			// you could implement a movePlusY etc. or you could find a way do
+			// do all moves in a single method. Hint: all changes are just + or
+			// - 1 to an x or y value.
 		} else if (_heading == Heading.MINUS_X) {
-		
+
 		} else if (_heading == Heading.MINUS_Y) {
-		
+
 		}
 
 		return to;
 	}
-
 
 	/**
 	 * Move probabilities from _from one cell in the plus x direction into _to
@@ -50,26 +51,30 @@ public class PerfectActionModel implements ActionModel {
 
 		// iterate through points updating as appropriate
 		for (int y = 0; y < _to.getGridHeight(); y++) {
+
 			for (int x = 0; x < _to.getGridWidth(); x++) {
+
 				// make sure to respect obstructed grid points
 				if (!_to.isObstructed(x, y)) {
 
 					// calculate the new probability for x,y based on the _from
-					// grid and the move made
+					// grid and the move made, e.g. if this was plus x then the
+					// probability in the _from (x, y) position should go to the
+					// _to (x+1, y) position
 
-					// this just copies the new value for the given point
-					// straight from the _from grid...
-					float newProb = _from.getProbability(x, y);
+					// this gets the probability at (x, y) in the _from grid
+					float prob = _from.getProbability(x, y);
 
-					// ... and uses the result to update the SAME point in the
-					// _to distribution
-					_to.setProbability(x, y, newProb);
+					// work out which point we are going to update in the _to
+					// grid. The below code does not move the value, just copies
+					// it to the same position
+					int toX = x;
+					int toY = y;
+					// then set that value from the old grid
+					_to.setProbability(toX, toY, prob);
 
-					// as you can see this, doesn't actually move any
-					// probabilities. That is for you to do.
 				}
 			}
 		}
 	}
-
 }
