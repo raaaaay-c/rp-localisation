@@ -14,10 +14,11 @@ public class GridMapExample {
 		JFrame frame = new JFrame("Map Viewer");
 
 		// Create a simple map with no obstacles
-		GridMap gridMap = LocalisationUtils.createRectangularGridMap(5, 5, 30);
+		// GridMap gridMap = LocalisationUtils.createRectangularGridMap(5, 5,
+		// 30);
 
 		// Create a more complex map
-		// GridMap gridMap = LocalisationUtils.createTrainingMap();
+		GridMap gridMap = LocalisationUtils.createTrainingMap();
 
 		// view the map with 2 pixels as 1 cm
 		GridMapVisualisation mapVis = new GridMapVisualisation(gridMap, 2);
@@ -29,11 +30,12 @@ public class GridMapExample {
 		frame.setVisible(true);
 
 		// Pick some point on the grid
-		int x = 0;
-		int y = 0;
+		int fromX = 1;
+		int fromY = 1;
+		int toX = 1;
+		int toY = 2;
 
-		// GridPositionDistribution distriubutionDistribution;
-		gridMap.rangeToObstacleFromGridPoint(x, y, Heading.PLUS_X);
+		System.out.println(gridMap.isValidTransition(fromX, fromY, toX, toY));
 
 	}
 }
