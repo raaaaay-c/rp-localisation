@@ -99,8 +99,7 @@ public class LocalisationUtils {
 	}
 
 	/**
-	 * Creates a grid map to match the training map as of 6/3/2013. Note that
-	 * this map uses
+	 * Creates a grid map to match the training map as of 6/3/2013. 
 	 * 
 	 * @return
 	 */
@@ -154,8 +153,7 @@ public class LocalisationUtils {
 	}
 
 	/**
-	 * Creates a grid map to match the training map as of 4/3/2013. Note that
-	 * this map uses
+	 * Creates a grid map to match the training map as of 4/3/2013.
 	 * 
 	 * @return
 	 */

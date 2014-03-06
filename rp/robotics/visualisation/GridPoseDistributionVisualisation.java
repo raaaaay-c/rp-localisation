@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import lejos.geom.Point;
-import rp.robotics.localisation.GridPoseDistribution;
+import rp.robotics.localisation.GridPositionDistribution;
 
 public class GridPoseDistributionVisualisation extends LineMapVisualisation {
 
@@ -16,10 +16,10 @@ public class GridPoseDistributionVisualisation extends LineMapVisualisation {
 
 	private static final float BIGGEST_POINT_RADIUS = 60;
 
-	protected GridPoseDistribution m_gridDistribution;
+	protected GridPositionDistribution m_gridDistribution;
 
 	public GridPoseDistributionVisualisation(
-			GridPoseDistribution _distribution, float _scaleFactor) {
+			GridPositionDistribution _distribution, float _scaleFactor) {
 		super(_distribution.getGridMap(), _scaleFactor);
 		m_gridDistribution = _distribution;
 	}
@@ -29,7 +29,7 @@ public class GridPoseDistributionVisualisation extends LineMapVisualisation {
 	 * 
 	 * @param _gridDistribution
 	 */
-	public void setDistribution(GridPoseDistribution _gridDistribution) {
+	public void setDistribution(GridPositionDistribution _gridDistribution) {
 		m_gridDistribution = _gridDistribution;
 	}
 

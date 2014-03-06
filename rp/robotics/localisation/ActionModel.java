@@ -12,7 +12,7 @@ import rp.robotics.mapping.Heading;
  */
 public interface ActionModel {
 
-	public GridPoseDistribution updateAfterMove(GridPoseDistribution _dist,
+	public GridPositionDistribution updateAfterMove(GridPositionDistribution _dist,
 			Heading _heading);
 
 }

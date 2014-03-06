@@ -62,7 +62,7 @@ public class MarkovLocalisationSkeleton {
 		GridMap gridMap = LocalisationUtils.createTrainingMap();
 
 		// The probability distribution over the robot's location
-		GridPoseDistribution distribution = new GridPoseDistribution(gridMap);
+		GridPositionDistribution distribution = new GridPositionDistribution(gridMap);
 
 		// view the map with 2 pixels as 1 cm
 		GridPoseDistributionVisualisation mapVis = new GridPoseDistributionVisualisation(

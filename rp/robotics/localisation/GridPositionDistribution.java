@@ -11,7 +11,7 @@ import rp.robotics.mapping.GridMap;
  * @author nah
  * 
  */
-public class GridPoseDistribution {
+public class GridPositionDistribution {
 
 	private static final Float OBSTRUCTED_POINT = null;
 	private final GridMap m_gridMap;
@@ -24,7 +24,7 @@ public class GridPoseDistribution {
 	 * 
 	 * @param _gridMap
 	 */
-	public GridPoseDistribution(GridMap _gridMap) {
+	public GridPositionDistribution(GridMap _gridMap) {
 		m_gridMap = _gridMap;
 		m_gridWidth = _gridMap.getGridWidth();
 		m_gridHeight = _gridMap.getGridHeight();
@@ -67,7 +67,7 @@ public class GridPoseDistribution {
 	 * 
 	 * @param _that
 	 */
-	public GridPoseDistribution(GridPoseDistribution _that) {
+	public GridPositionDistribution(GridPositionDistribution _that) {
 		m_gridMap = _that.m_gridMap;
 		m_gridWidth = m_gridMap.getGridWidth();
 		m_gridHeight = m_gridMap.getGridHeight();

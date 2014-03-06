@@ -13,27 +13,27 @@ public class GridMapExample {
 
 		JFrame frame = new JFrame("Map Viewer");
 
-	
+		// Create a simple map with no obstacles
+		GridMap gridMap = LocalisationUtils.createRectangularGridMap(5, 5, 30);
 
-		GridMap gridMap = LocalisationUtils.createTrainingMap();
+		// Create a more complex map
+		// GridMap gridMap = LocalisationUtils.createTrainingMap();
 
 		// view the map with 2 pixels as 1 cm
 		GridMapVisualisation mapVis = new GridMapVisualisation(gridMap, 2);
 
+		// Update frame to display visualisation
 		frame.add(mapVis);
 		frame.pack();
-		frame.setSize(1050, 600);
+		frame.setSize(800, 600);
 		frame.setVisible(true);
 
+		// Pick some point on the grid
 		int x = 0;
-		int y = 1;
+		int y = 0;
 
-		System.out.println(x + "," + y + " PLUS_X "
-				+ gridMap.rangeToObstacleFromGridPoint(x, y, Heading.PLUS_X));
+		// GridPositionDistribution distriubutionDistribution;
+		gridMap.rangeToObstacleFromGridPoint(x, y, Heading.PLUS_X);
 
-		System.out.println(x + "," + y + " MINUS_Y "
-				+ gridMap.rangeToObstacleFromGridPoint(x, y, Heading.MINUS_Y));
-
-		
 	}
 }

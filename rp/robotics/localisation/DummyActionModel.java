@@ -13,13 +13,13 @@ import rp.robotics.mapping.Heading;
  */
 public class DummyActionModel implements ActionModel {
 
-	public GridPoseDistribution updateAfterMove(GridPoseDistribution _from,
+	public GridPositionDistribution updateAfterMove(GridPositionDistribution _from,
 			Heading _heading) {
 
 		// Create a new distribution from the input distribution.
 		// NB It might prove more efficient to update the distribution directly,
 		// rather than create a new one each time.
-		GridPoseDistribution afterAction = new GridPoseDistribution(_from);
+		GridPositionDistribution afterAction = new GridPositionDistribution(_from);
 
 		Random rand = new Random();
 

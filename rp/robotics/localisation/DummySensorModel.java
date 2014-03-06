@@ -10,7 +10,7 @@ package rp.robotics.localisation;
  */
 public class DummySensorModel {
 
-	public void updateDistributionAfterSensing(GridPoseDistribution _dist/*
+	public void updateDistributionAfterSensing(GridPositionDistribution _dist/*
 																		 * ,
 																		 * SomeSensingResult
 																		 * _data
