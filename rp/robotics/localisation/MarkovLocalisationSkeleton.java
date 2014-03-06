@@ -62,7 +62,8 @@ public class MarkovLocalisationSkeleton {
 		GridMap gridMap = LocalisationUtils.createTrainingMap();
 
 		// The probability distribution over the robot's location
-		GridPositionDistribution distribution = new GridPositionDistribution(gridMap);
+		GridPositionDistribution distribution = new GridPositionDistribution(
+				gridMap);
 
 		// view the map with 2 pixels as 1 cm
 		GridPoseDistributionVisualisation mapVis = new GridPoseDistributionVisualisation(
@@ -73,8 +74,9 @@ public class MarkovLocalisationSkeleton {
 		frame.setSize(1050, 600);
 		frame.setVisible(true);
 
-		ActionModel actionModel = new DummyActionModel();
-		// ActionModel actionModel = new PerfectActionModel();
+		// ActionModel actionModel = new DummyActionModel();
+		ActionModel actionModel = new PerfectActionModel();
+
 		DummySensorModel sensorModel = new DummySensorModel();
 
 		while (true) {
@@ -110,7 +112,7 @@ public class MarkovLocalisationSkeleton {
 			);
 
 			// Note, as the sensor model changes the distribution directly, the
-			// visualisation will update automaticallym so
+			// visualisation will update automatically so
 			// mapVis.setDistribution is not necessary after the sensor model
 
 		}

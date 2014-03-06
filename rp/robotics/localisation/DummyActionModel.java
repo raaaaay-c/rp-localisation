@@ -13,36 +13,27 @@ import rp.robotics.mapping.Heading;
  */
 public class DummyActionModel implements ActionModel {
 
-	public GridPositionDistribution updateAfterMove(GridPositionDistribution _from,
-			Heading _heading) {
+	public GridPositionDistribution updateAfterMove(
+			GridPositionDistribution _from, Heading _heading) {
 
 		// Create a new distribution from the input distribution.
 		// NB It might prove more efficient to update the distribution directly,
 		// rather than create a new one each time.
-		GridPositionDistribution afterAction = new GridPositionDistribution(_from);
+		GridPositionDistribution afterAction = new GridPositionDistribution(
+				_from);
 
 		Random rand = new Random();
 
-		// iterate through points updating as appropriate
-		// for (int x = 0; x < afterAction.getGridWidth(); x++) {
-		// for (int y = 0; y < afterAction.getGridHeight(); y++) {
-		// // make sure to respect obstructed grid points
-		// if (!afterAction.isObstructed(x, y)) {
-		// // updating with random value
-		// afterAction.setProbability(x, y, rand.nextFloat());
-		// }
-		// }
-		// }
-
+		int x;
+		int y;
+		
 		// 5 points set to random values
 		for (int i = 0; i < 5; i++) {
-			int x = rand.nextInt(afterAction.getGridWidth());
-			int y = rand.nextInt(afterAction.getGridHeight());
-			while (afterAction.isObstructed(x, y)) {
-				// keep looping until unobstructed point is found
+			do {
 				x = rand.nextInt(afterAction.getGridWidth());
 				y = rand.nextInt(afterAction.getGridHeight());
-			}
+				// keep looping until unobstructed point is found
+			} while (afterAction.isObstructed(x, y));
 			afterAction.setProbability(x, y, rand.nextFloat());
 		}
 

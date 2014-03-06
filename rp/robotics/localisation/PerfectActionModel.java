@@ -18,8 +18,8 @@ import rp.robotics.mapping.Heading;
 public class PerfectActionModel implements ActionModel {
 
 	@Override
-	public GridPositionDistribution updateAfterMove(GridPositionDistribution _from,
-			Heading _heading) {
+	public GridPositionDistribution updateAfterMove(
+			GridPositionDistribution _from, Heading _heading) {
 
 		// Create the new distribution that will result from applying the action
 		// model
@@ -47,7 +47,8 @@ public class PerfectActionModel implements ActionModel {
 	 * @param _from
 	 * @param _to
 	 */
-	private void movePlusX(GridPositionDistribution _from, GridPositionDistribution _to) {
+	private void movePlusX(GridPositionDistribution _from,
+			GridPositionDistribution _to) {
 
 		// iterate through points updating as appropriate
 		for (int y = 0; y < _to.getGridHeight(); y++) {
@@ -57,21 +58,29 @@ public class PerfectActionModel implements ActionModel {
 				// make sure to respect obstructed grid points
 				if (!_to.isObstructed(x, y)) {
 
-					// calculate the new probability for x,y based on the _from
-					// grid and the move made, e.g. if this was plus x then the
-					// probability in the _from (x, y) position should go to the
-					// _to (x+1, y) position
+					// the action model should work out all of the different
+					// ways (x,y) in the _to grid could've been reached based on
+					// the _from grid and the move taken (in this case
+					// HEADING.PLUS_X)
 
-					// this gets the probability at (x, y) in the _from grid
-					float prob = _from.getProbability(x, y);
+					// for example if the only way to have got to _to (x,y) was
+					// from _from (x-1, y) (i.e. there was a PLUS_X move from
+					// (x-1, y) then you write that to the (x, y) value
 
-					// work out which point we are going to update in the _to
-					// grid. The below code does not move the value, just copies
+					// The below code does not move the value, just copies
 					// it to the same position
+
+					// position before move
+					int fromX = x;
+					int fromY = y;
+					float fromProb = _from.getProbability(fromX, fromY);
+
+					// position after move
 					int toX = x;
 					int toY = y;
-					// then set that value from the old grid
-					_to.setProbability(toX, toY, prob);
+
+					// set probability for position after move
+					_to.setProbability(toX, toY, fromProb);
 
 				}
 			}

@@ -175,44 +175,44 @@ public class GridMap extends LineMap {
 		return (rl == null ? -1 : rl.length());
 	}
 
-//	/**
-//	 * Can the robot move from grid point x1,y1 to x2,y2 without passing through
-//	 * an obstacle.
-//	 * 
-//	 * @param _x1
-//	 * @param _y1
-//	 * @param _x2
-//	 * @param _y2
-//	 * @return
-//	 */
-//	public boolean isValidTransition(int _x1, int _y1, int _x2, int _y2) {
-//		
-//		
-//		
-//		if (!isValidGridPoint(_x1, _y1) || !isValidGridPoint(_x2, _y2)) {
-//			return false;
-//		}
-//
-//		if (isObstructed(_x1, _y1) || isObstructed(_x2, _y2)) {
-//			return false;
-//		}
-//
-//		Line transition = createLineBetweenGridPoints(_x1, _y1, _x2, _y2);
-//		Line[] lines = getLines();
-//		for (int i = 0; i < lines.length; i++) {
-//
-//			// System.out.println(i+ " checking against: " + lines[i].x1 + " "
-//			// + lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
-//
-//			Point p = intersectsAt(lines[i], transition);
-//
-//			if (p != null) {
-//				return false;
-//			}
-//
-//		}
-//		return true;
-//	}
+	/**
+	 * Can the robot move from grid point x1,y1 to x2,y2 without passing through
+	 * an obstacle.
+	 * 
+	 * @param _x1
+	 * @param _y1
+	 * @param _x2
+	 * @param _y2
+	 * @return
+	 */
+	public boolean isValidTransition(int _x1, int _y1, int _x2, int _y2) {
+		
+		
+		
+		if (!isValidGridPoint(_x1, _y1) || !isValidGridPoint(_x2, _y2)) {
+			return false;
+		}
+
+		if (isObstructed(_x1, _y1) || isObstructed(_x2, _y2)) {
+			return false;
+		}
+
+		Line transition = createLineBetweenGridPoints(_x1, _y1, _x2, _y2);
+		Line[] lines = getLines();
+		for (int i = 0; i < lines.length; i++) {
+
+			// System.out.println(i+ " checking against: " + lines[i].x1 + " "
+			// + lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
+
+			Point p = intersectsAt(lines[i], transition);
+
+			if (p != null) {
+				return false;
+			}
+
+		}
+		return true;
+	}
 
 	/**
 	 * @param _x1
