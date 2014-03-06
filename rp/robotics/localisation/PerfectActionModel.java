@@ -55,6 +55,8 @@ public class PerfectActionModel implements ActionModel {
 
 			for (int x = 0; x < _to.getGridWidth(); x++) {
 
+				
+				
 				// make sure to respect obstructed grid points
 				if (!_to.isObstructed(x, y)) {
 
