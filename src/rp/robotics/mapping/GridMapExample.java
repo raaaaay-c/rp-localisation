@@ -18,7 +18,7 @@ public class GridMapExample {
 		// 30);
 
 		// Create a more complex map
-		GridMap gridMap = LocalisationUtils.createTrainingMap();
+		GridMap gridMap = LocalisationUtils.create2014Map1();
 
 		// view the map with 2 pixels as 1 cm
 		GridMapVisualisation mapVis = new GridMapVisualisation(gridMap, 2);
