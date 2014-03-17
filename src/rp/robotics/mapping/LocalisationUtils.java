@@ -162,7 +162,7 @@ public class LocalisationUtils {
 
 		int yJunctions = 7;
 
-		float junctionSeparation = 30.28f; // avg over 5 junctions
+		int junctionSeparation = 30; // (avg over 5 junctions: 30.28)
 
 		// position of 0,0 junction wrt to top left of map
 
