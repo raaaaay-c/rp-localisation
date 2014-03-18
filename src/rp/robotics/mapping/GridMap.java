@@ -23,18 +23,31 @@ public class GridMap extends LineMap {
 	private int m_gridWidth;
 	private float m_largestDimension;
 
+	private enum TriBool {
+		TRUE, FALSE, UNKNOWN
+	}
+
+	// map to cache valid transitions
+	private TriBool[][][][] m_transitionMap;
+
 	/**
 	 * 
 	 * Overall grid width is (_gridWidth - 1) * _cellSize.
 	 * 
 	 * @param _gridWidth
 	 *            The number of points the grid is wide.
-	 * @param _gridHeight The number of points the grid is high.
-	 * @param _xStart The x offset of the first point
-	 * @param _yStart The y offset of the first point
-	 * @param _cellSize The spacing between grid points
-	 * @param _lines The lines that will make up the underlying LineMap
-	 * @param _boundingRect The bounding reectangle of the whole map
+	 * @param _gridHeight
+	 *            The number of points the grid is high.
+	 * @param _xStart
+	 *            The x offset of the first point
+	 * @param _yStart
+	 *            The y offset of the first point
+	 * @param _cellSize
+	 *            The spacing between grid points
+	 * @param _lines
+	 *            The lines that will make up the underlying LineMap
+	 * @param _boundingRect
+	 *            The bounding reectangle of the whole map
 	 */
 	public GridMap(int _gridWidth, int _gridHeight, float _xStart,
 			float _yStart, float _cellSize, Line[] _lines,
@@ -59,6 +72,19 @@ public class GridMap extends LineMap {
 
 		m_largestDimension = Math
 				.max(_boundingRect.width, _boundingRect.height);
+
+		m_transitionMap = new TriBool[m_gridWidth][m_gridHeight][m_gridWidth][m_gridHeight];
+		for (int x1 = 0; x1 < m_gridWidth; x1++) {
+			for (int y1 = 0; y1 < m_gridHeight; y1++) {
+				for (int x2 = 0; x2 < m_gridWidth; x2++) {
+					for (int y2 = 0; y2 < m_gridHeight; y2++) {
+						m_transitionMap[x1][y1][x2][y2] = TriBool.UNKNOWN;
+					}
+				}
+			}
+
+		}
+
 	}
 
 	/**
@@ -145,26 +171,26 @@ public class GridMap extends LineMap {
 						* (float) Math.sin(Math.toRadians(pose.getHeading())));
 		Line rl = null;
 
-//		System.out.println("target: " + l.x1 + " " + l.y1 + ", " + l.x2 + " "
-//				+ l.y2);
+		// System.out.println("target: " + l.x1 + " " + l.y1 + ", " + l.x2 + " "
+		// + l.y2);
 
 		Line[] lines = getLines();
 		for (int i = 0; i < lines.length; i++) {
 
-//			System.out.println(i + " checking against: " + lines[i].x1 + " "
-//					+ lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
+			// System.out.println(i + " checking against: " + lines[i].x1 + " "
+			// + lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
 
 			Point p = intersectsAt(lines[i], l);
 
 			if (p == null) {
 				// Does not intersect
-//				System.out.println("does not intersect");
+				// System.out.println("does not intersect");
 				continue;
 			}
 
 			Line tl = new Line(pose.getX(), pose.getY(), p.x, p.y);
 
-//			System.out.println("does intersect: " + tl.length());
+			// System.out.println("does intersect: " + tl.length());
 
 			// If the range line intersects more than one map line
 			// then take the shortest distance.
@@ -186,9 +212,35 @@ public class GridMap extends LineMap {
 	 * @return
 	 */
 	public boolean isValidTransition(int _x1, int _y1, int _x2, int _y2) {
-		
-		
-		
+		TriBool validity = m_transitionMap[_x1][_y1][_x2][_y2];
+		if (validity == TriBool.UNKNOWN) {
+			boolean valid = isValidTransitionInternal(_x1, _y1, _x2, _y2);
+			if (valid) {
+				m_transitionMap[_x1][_y1][_x2][_y2] = TriBool.TRUE;
+			} else {
+				m_transitionMap[_x1][_y1][_x2][_y2] = TriBool.FALSE;
+			}
+			return valid;
+		} else {
+			return validity == TriBool.TRUE;
+		}
+
+	}
+
+	/**
+	 * Can the robot move from grid point x1,y1 to x2,y2 without passing through
+	 * an obstacle. This method performs the calculations. The version without
+	 * "Internal" uses this and caches the result for later reuse.
+	 * 
+	 * @param _x1
+	 * @param _y1
+	 * @param _x2
+	 * @param _y2
+	 * @return
+	 */
+	protected boolean isValidTransitionInternal(int _x1, int _y1, int _x2,
+			int _y2) {
+
 		if (!isValidGridPoint(_x1, _y1) || !isValidGridPoint(_x2, _y2)) {
 			return false;
 		}
