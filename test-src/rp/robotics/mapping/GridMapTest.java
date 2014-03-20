@@ -236,4 +236,44 @@ public class GridMapTest {
 			}
 		}
 	}
+
+	@Test
+	private void rangeToObstaceTest() {
+
+		float sep = 30f;
+		float target = sep / 2f;
+		GridMap map = LocalisationUtils.createRectangularGridMap(1, 1, sep);
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.PLUS_X), target,
+				0f);
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.PLUS_Y), target,
+				0f);
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.MINUS_X),
+				target, 0f);
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.MINUS_Y),
+				target, 0f);
+		
+		map = LocalisationUtils.create2014Map1();
+
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.PLUS_X),
+				map.getBoundingRect().width - map.getXStart(), 0f);
+			
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.PLUS_Y),
+				map.getBoundingRect().height - map.getYStart(), 0f);
+		
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.MINUS_X),
+				map.getXStart(), 0f);
+			
+		Assert.assertEquals(
+				map.rangeToObstacleFromGridPoint(0, 0, Heading.MINUS_Y),
+				map.getYStart(), 0f);
+		
+	}
+
 }
