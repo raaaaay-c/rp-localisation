@@ -152,9 +152,9 @@ public class LocalisationUtils {
 
 	public static GridMap create2014Map1() {
 
-		float height = 240.5f;
+		float height = 241f;
 
-		float width = 323.5f;
+		float width = 324f;
 
 		// junction numbers
 
