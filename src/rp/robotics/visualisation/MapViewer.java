@@ -16,12 +16,12 @@ public class MapViewer {
 
 		JFrame frame = new JFrame("Map Viewer");
 
-		GridMap gridMap = LocalisationUtils.createTrainingMap();
+		GridMap gridMap = LocalisationUtils.create2014Map1();
 
 		GridPositionDistribution distribution = new GridPositionDistribution(gridMap);
 
-		int x = 0;
-		int y = 0;
+		int x = 1;
+		int y = 1;
 
 		distribution.setProbability(x, y, 0.5f);
 		distribution.normalise();

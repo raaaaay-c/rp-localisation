@@ -29,12 +29,18 @@ public class GridMap extends LineMap {
 	 * 
 	 * @param _gridWidth
 	 *            The number of points the grid is wide.
-	 * @param _gridHeight The number of points the grid is high.
-	 * @param _xStart The x offset of the first point
-	 * @param _yStart The y offset of the first point
-	 * @param _cellSize The spacing between grid points
-	 * @param _lines The lines that will make up the underlying LineMap
-	 * @param _boundingRect The bounding reectangle of the whole map
+	 * @param _gridHeight
+	 *            The number of points the grid is high.
+	 * @param _xStart
+	 *            The x offset of the first point
+	 * @param _yStart
+	 *            The y offset of the first point
+	 * @param _cellSize
+	 *            The spacing between grid points
+	 * @param _lines
+	 *            The lines that will make up the underlying LineMap
+	 * @param _boundingRect
+	 *            The bounding reectangle of the whole map
 	 */
 	public GridMap(int _gridWidth, int _gridHeight, float _xStart,
 			float _yStart, float _cellSize, Line[] _lines,
@@ -144,26 +150,30 @@ public class GridMap extends LineMap {
 				pose.getY() + m_largestDimension
 						* (float) Math.sin(Math.toRadians(pose.getHeading())));
 		Line rl = null;
-
 //		System.out.println("target: " + l.x1 + " " + l.y1 + ", " + l.x2 + " "
-//				+ l.y2);
+//		+ l.y2);
 
+		
 		Line[] lines = getLines();
 		for (int i = 0; i < lines.length; i++) {
 
-//			System.out.println(i + " checking against: " + lines[i].x1 + " "
-//					+ lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
 
 			Point p = intersectsAt(lines[i], l);
 
 			if (p == null) {
 				// Does not intersect
+//				System.out.println(i + " checking against: " + lines[i].x1 + " "
+//						+ lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
+
 //				System.out.println("does not intersect");
 				continue;
 			}
 
 			Line tl = new Line(pose.getX(), pose.getY(), p.x, p.y);
 
+//			System.out.println(i + " checking against: " + lines[i].x1 + " "
+//					+ lines[i].y1 + ", " + lines[i].x2 + " " + lines[i].y2);
+//
 //			System.out.println("does intersect: " + tl.length());
 
 			// If the range line intersects more than one map line
@@ -186,9 +196,7 @@ public class GridMap extends LineMap {
 	 * @return
 	 */
 	public boolean isValidTransition(int _x1, int _y1, int _x2, int _y2) {
-		
-		
-		
+
 		if (!isValidGridPoint(_x1, _y1) || !isValidGridPoint(_x2, _y2)) {
 			return false;
 		}
@@ -371,9 +379,19 @@ public class GridMap extends LineMap {
 	}
 
 	public static void main(String[] args) {
-		GridMap map = LocalisationUtils.createTrainingMap();
-		System.out.println(map.rangeToObstacleFromGridPoint(3, 1,
-				Heading.PLUS_Y));
+		GridMap map = LocalisationUtils.create2014Map1();
+		System.out.println(map.rangeToObstacleFromGridPoint(0, 0,
+				Heading.PLUS_X));
+		
+		System.out.println(map.getBoundingRect().width);
+		System.out.println(map.getXStart());
+		
+		// System.out.println(map.rangeToObstacleFromGridPoint(0, 0,
+		// Heading.PLUS_Y));
+		// System.out.println(map.rangeToObstacleFromGridPoint(0, 0,
+		// Heading.MINUS_X));
+		// System.out.println(map.rangeToObstacleFromGridPoint(0, 0,
+		// Heading.MINUS_Y));
 
 	}
 
