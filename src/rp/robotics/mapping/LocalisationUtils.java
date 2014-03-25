@@ -329,6 +329,57 @@ public class LocalisationUtils {
 						height));
 
 	}
+	
+	public static GridMap create2014Map2() {
+		float height = 242;
+		float width = 306;
+
+		// junction numbers
+		int xJunctions = 10;
+		int yJunctions = 7;
+
+		float junctionSeparation = 30;
+
+		int xInset = 14;
+		int yInset = 31;
+
+		ArrayList<Line> lines = new ArrayList<Line>();
+
+		lines.add(new Line(0f, 0f, width, 0f));
+		lines.add(new Line(width, 0f, width, height));
+		lines.add(new Line(width, height, 0f, height));
+		lines.add(new Line(0f, height, 0f, 0f));
+
+		// Left line
+		lines.addAll(lineToBox(30, 71, 30, 171));
+
+		// Top box
+		lines.add(new Line(131, 0, 131, 37));
+		lines.add(new Line(131, 37, 171, 37));
+		lines.add(new Line(171, 37, 171, 0));
+
+		// Middle
+		lines.addAll(lineToBox(93, 108, 218, 108));
+		lines.add(new Line(134, 108, 134, 168));
+		lines.add(new Line(177, 108, 177, 168));
+		lines.addAll(lineToBox(94, 168, 219, 168));
+
+		// Bottom box
+		lines.add(new Line(134, 242, 134, 206));
+		lines.add(new Line(134, 206, 176, 206));
+		lines.add(new Line(176, 206, 176, 242));
+
+		// Right box
+		lines.addAll(lineToBox(278, 71, 278, 171));
+		// lines.addAll(lineToBox(268,71,268,171));
+
+		Line[] lineArray = new Line[lines.size()];
+		lines.toArray(lineArray);
+
+		return new GridMap(xJunctions, yJunctions, xInset, yInset,
+				junctionSeparation, lineArray, new Rectangle(0, 0, width,
+						height));
+	}
 
 	/**
 	 * Creates a grid map to match the training map as of 4/3/2013.
